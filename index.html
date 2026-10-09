@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#073b7a">
+  <meta name="description" content="موقع التحقق من أسعار المواد في أمازون هايبر ماركت">
+  <title>التحقق من السعر | أمازون هايبر ماركت</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="cart-logo" aria-hidden="true">🛒</div>
+        <div>
+          <div class="brand-en">AMAZON <span>HYPERMARKET</span></div>
+          <div class="brand-ar">أمازون هايبر ماركت</div>
+        </div>
+      </div>
+      <button id="helpBtn" class="icon-btn" aria-label="طريقة الاستخدام">؟</button>
+    </header>
+
+    <section id="scannerView" class="view">
+      <div class="hero">
+        <div class="hero-badge">PRICE CHECK</div>
+        <h1>تحقق من السعر الآن</h1>
+        <p>امسح باركود المادة لمعرفة سعرها الحالي بسرعة</p>
+      </div>
+
+      <div class="quick-actions">
+        <button id="startBtn" class="primary-btn big-btn"><span>📷</span><span><b>استخدم الكاميرا</b><small>مسح الباركود</small></span></button>
+        <button id="manualBtn" class="secondary-btn big-btn"><span>⌨️</span><span><b>إدخال الباركود</b><small>للبحث اليدوي</small></span></button>
+      </div>
+
+      <div class="scanner-card">
+        <div class="scan-title"><span>ماسح الباركود</span><span class="live-dot">● جاهز</span></div>
+        <div id="reader" class="reader"></div>
+        <div id="cameraMessage" class="camera-message">اضغط «استخدم الكاميرا» ثم اسمح للمتصفح باستخدام الكاميرا</div>
+        <div class="scan-hint">وجّه الكاميرا نحو الباركود فقط</div>
+      </div>
+
+      <div class="benefits">
+        <div><span class="benefit-icon green">⚡</span><b>سريع</b><small>قراءة مباشرة</small></div>
+        <div><span class="benefit-icon blue">✓</span><b>دقيق</b><small>السعر الحالي</small></div>
+        <div><span class="benefit-icon orange">📱</span><b>من هاتفك</b><small>بدون تطبيق</small></div>
+        <div><span class="benefit-icon red">◉</span><b>بدون لمس</b><small>تسوق بسهولة</small></div>
+      </div>
+
+      <div class="qr-card">
+        <div>
+          <span class="section-label">دخول سريع للموقع</span>
+          <h2>امسح الكيو آر للتحقق من السعر</h2>
+          <p>افتح كاميرا هاتفك ووجّهها إلى QR للوصول مباشرة إلى موقع التحقق.</p>
+          <div class="site-url">amazonhyperiq.github.io/amazon-price-reader/</div>
+        </div>
+        <img src="price-check-qr.png" alt="QR Code يفتح موقع التحقق من السعر" class="qr-image">
+      </div>
+    </section>
+
+    <section id="manualView" class="view" hidden>
+      <div class="page-title"><span>⌨️</span><div><h2>إدخال الباركود</h2><p>اكتب رقم الباركود للبحث</p></div></div>
+      <form id="manualForm" class="manual-card">
+        <label for="manualCode">رقم الباركود</label>
+        <input id="manualCode" inputmode="numeric" autocomplete="off" placeholder="مثال: 7613036961608">
+        <button class="primary-btn" type="submit">تحقق من السعر</button>
+        <button id="backFromManual" class="secondary-btn" type="button">العودة للكاميرا</button>
+      </form>
+    </section>
+
+    <section id="resultView" class="view" hidden>
+      <div class="result-status"><span>✓</span> تم العثور على المنتج</div>
+      <div class="product-card">
+        <div class="product-image">
+          <div id="imagePlaceholder"><div class="placeholder-icon">📦</div><div>صورة المادة</div><small>ستظهر الصورة الحقيقية بعد ربط صور المنتجات</small></div>
+          <img id="productImage" alt="" hidden>
+        </div>
+        <div class="product-info">
+          <div class="product-tag">AMAZON HYPERMARKET</div>
+          <h2 id="productName">—</h2>
+          <div class="price-label">سعر البيع الحالي</div>
+          <div class="price-row"><span id="productPrice">—</span><small>د.ع</small></div>
+          <div class="barcode-pill">▦ <span id="productBarcode">—</span></div>
+        </div>
+      </div>
+      <button id="scanAgainBtn" class="primary-btn">📷 مسح منتج آخر</button>
+    </section>
+
+    <section id="notFoundView" class="view" hidden>
+      <div class="notfound-card">
+        <div class="notfound-icon">!</div>
+        <h2>لم يتم العثور على المادة</h2>
+        <p>الباركود المقروء غير موجود في قاعدة الأسعار الحالية.</p>
+        <div class="scanned-code" id="notFoundCode"></div>
+      </div>
+      <button id="retryBtn" class="primary-btn">📷 مسح مرة أخرى</button>
+    </section>
+
+    <footer>
+      <b>أمازون هايبر ماركت</b>
+      <span>تحقق من السعر بسهولة من هاتفك</span>
+    </footer>
+  </main>
+
+  <dialog id="helpDialog">
+    <div class="dialog-icon">📷</div>
+    <h3>طريقة الاستخدام</h3>
+    <ol><li>اضغط «استخدم الكاميرا».</li><li>اسمح للمتصفح بالكاميرا.</li><li>وجّه الكاميرا إلى الباركود.</li><li>سيظهر اسم المادة والسعر الحالي.</li></ol>
+    <button id="closeHelp" class="secondary-btn">إغلاق</button>
+  </dialog>
+
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
